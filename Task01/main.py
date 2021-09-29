@@ -15,7 +15,8 @@ def set_the_number():   # Функція для задання розміру
         except ValueError:
             print("НЕ вірні дані! Спробуй ще разочок")
 
-def create_an_array(numbers):   # Функція для створення масиву
+def create_an_array():   # Функція для створення масиву
+    numbers = set_the_number()
     arr=[]
     for i in range(numbers):
         while True:
@@ -26,29 +27,33 @@ def create_an_array(numbers):   # Функція для створення ма�
                 print("НЕ вірні дані! Спробуй ще разочок")
     return arr
 
-def find_the_item(numbers, arr):    # Функція для знаходження останнього елементу масиву, що знаходиться в діапазоні (-k; k)
+def enter_range(arr):       # Функція для задання діапазону (-k; k)
     while True:
         try:
             min_value = abs(arr[1])
-            for i in range(numbers):
+            for i in range(len(arr)):
                 if abs(arr[i]) < min_value:
                     min_value = abs(arr[i])
             k = int(input("Введіть елемнт k: "))
             if k < min_value:
                 while k < min_value:
                     k = int(input("Елемент знаходиться поза діапазоном, спробуйте ще: "))
-            y = numbers - 1
-            while y >= 0:
-                if -k < arr[y] < k:
-                    print("Останній елемент масиву, який знаходиться в діапазоні (-k; k): " + str(arr[y]))
-                    print("Індекс цього елементу: " + str(arr.index(arr[y])))
-                    break
-                else:
-                    y -= 1
-            break
+            return k
         except ValueError:
             print("НЕ вірні дані! Спробуй ще разочок")
 
+def find_the_item(arr, k):    # Функція для знаходження останнього елементу масиву, що знаходиться в діапазоні (-k; k)
+    y = len(arr) - 1
+    while y >= 0:
+        if -k < arr[y] < k:
+            result = [str(arr[y]), str(arr.index(arr[y]))]
+            return result
+            break
+        else:
+            y -= 1
+
 while True:
-    n = set_the_number()
-    find_the_item(n, create_an_array(n))
+    c = create_an_array()
+    a =find_the_item(c, enter_range(c))
+    print("Останній елемент масиву, який знаходиться в діапазоні (-k; k): " + a[0])
+    print("Індекс цього елементу: " + a[1])
