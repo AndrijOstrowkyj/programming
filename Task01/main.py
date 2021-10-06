@@ -52,7 +52,7 @@ def find_the_item(arr, k):    # Функція для знаходження о�
         else:
             y -= 1
 
-while True:
+while True: #головна програма
     arr = create_an_array()
     k = enter_range(arr)
     a =find_the_item(arr, k)
