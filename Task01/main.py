@@ -1,46 +1,46 @@
-def set_the_number():   # Функція для задання розміру
+def set_the_value():   # Функція для задання і перевірки значень
     while True:
         try:
-            numbers = input("Введіть кількість елементів у масиві: ")
-            if numbers == 'exit':
+            value = input()
+            if value == 'exit':
                 print('Програма завершила роботу')
                 exit()
             else:
-                numbers = int(numbers)
-                if numbers <= 0:
-                    while numbers <= 0:
-                        numbers = int(input("Масив не може бути меншим або дорівнювати нулю!!!: "))
-                return numbers
-                break
+                return int(value)
+            break
         except ValueError:
             print("НЕ вірні дані! Спробуй ще разочок")
+
+def set_the_number():   # Функція для задання розміру
+    print("Введіть кількість елементів у масиві:")
+    numbers = set_the_value()
+    if numbers <= 0:
+        while numbers <= 0:
+            print("Масив не може бути меншим або дорівнювати нулю!!! Спробуй ще:")
+            numbers = set_the_value()
+    return numbers
 
 def create_an_array():   # Функція для створення масиву
     numbers = set_the_number()
-    arr=[]
+    arr = []
     for i in range(numbers):
-        while True:
-            try:
-                arr.append(int(input("Введіь елемент: ")))
-                break
-            except ValueError:
-                print("НЕ вірні дані! Спробуй ще разочок")
+        print("Введіь елемент масиву " + str(i + 1) + ":")
+        element = set_the_value()
+        arr.append(element)
     return arr
 
 def enter_range(arr):       # Функція для задання діапазону (-k; k)
-    while True:
-        try:
-            min_value = abs(arr[1])
-            for i in range(len(arr)):
-                if abs(arr[i]) < min_value:
-                    min_value = abs(arr[i])
-            k = int(input("Введіть елемнт k: "))
-            if k < min_value:
-                while k < min_value:
-                    k = int(input("Елемент знаходиться поза діапазоном, спробуйте ще: "))
-            return k
-        except ValueError:
-            print("НЕ вірні дані! Спробуй ще разочок")
+    min_value = abs(arr[1])
+    for i in range(len(arr)):
+        if abs(arr[i]) < min_value:
+            min_value = abs(arr[i])
+    print("Введіть елемнт k:")
+    k = set_the_value()
+    if k < min_value:
+        while k < min_value:
+            print("Елемент знаходиться поза діапазоном, спробуйте ще:")
+            k = set_the_value()
+    return k
 
 def find_the_item(arr, k):    # Функція для знаходження останнього елементу масиву, що знаходиться в діапазоні (-k; k)
     y = len(arr) - 1
@@ -53,7 +53,8 @@ def find_the_item(arr, k):    # Функція для знаходження о�
             y -= 1
 
 while True:
-    c = create_an_array()
-    a =find_the_item(c, enter_range(c))
+    arr = create_an_array()
+    k = enter_range(arr)
+    a =find_the_item(arr, k)
     print("Останній елемент масиву, який знаходиться в діапазоні (-k; k): " + a[0])
     print("Індекс цього елементу: " + a[1])
